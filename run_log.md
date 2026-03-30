@@ -1,26 +1,130 @@
 # Run Log - Quantum-Based Anomaly Detection in Network Traffic Using Qiskit’s Variational Quantum Classifier
 
-**Student:** Mir Hasan Mohammad Ilham
+**Student:** Mir Hasan Mohammad Ilham  
 **Project:** Quantum-Based Network Traffic Anomaly Detection using VQC  
 **Repository:** https://github.com/Mir-Ilham/SQA-2026-Quantum-Based-Network-Anomaly-Detection-VQC  
-**Date started:** 28 March 2026
+**Date started:** 28 March 2026  
 **Environment:** Local (Python 3.11.9) + qiskit 2.3.0, qiskit-machine-learning 0.9.0
 
-## Run 1 - Baseline (Original Notebook)
+## Run 1 - Baseline (Working Copy)
 
 **Date:** 28 Mar 2026  
-**Changes made:** None – ran the notebook as provided  
-**Key parameters:**
-**Observations:**
+**Changes made:** View [change_log.md](./change_log.md) file for changes made in the original notebook
 
-<!-- - Training accuracy: XX.XX%
-- Test accuracy: XX.XX%
-- Confusion matrix: [paste or describe]
-- Training time: ~X minutes on CPU
-- Plots: Loss curve converges after ~XX iterations; some misclassifications on high packet-drop samples -->
+### Exploratory Data Analysis:
 
-**Conclusions:**
+#### 1. Pair plot of data feature distribution
 
-**Next steps:**
+![Data Feature Distribution](results/run1/Data-Feature-distribution.png)
+
+#### 2. Principal Component Analysis
+
+![PCA](results/run1/PCA.png)
+
+**Observations:** The pair plot along with the PCA visualization shows very clear separability between normal (blue) and anomalous (orange) traffic, indicating unique behavioral patterns in the dataset. Normal traffic clusters tightly around lower packet rates (~100 packets/sec), lower byte volumes, and very low packet drop rates (~1%), indicating low variance and stable behavior. In contrast, anomalous traffic exhibits significantly higher packet rates and byte volumes with much greater spread, along with elevated and widely dispersed packet drop rates (~0.1). The protocol feature also cleanly separates the classes, with normal traffic concentrated at protocol 1 and anomalies distributed across protocols 2 and 3.
+
+#### 3. Feature Correlation Heatmap
+
+![Correlation Heatmap](results/run1/Correlation-heatmap.png)
+
+**Observations:** The heatmap shows strong positive correlations (~0.86–0.88) between packet rate, byte rate, and protocol, indicating that higher traffic intensity is consistently linked with protocol shifts. Packet drop rate is also highly correlated (~0.81–0.87) with these features, suggesting congestion-induced packet loss under heavy load.
+
+**Interpretation of results:** From a networking perspective, these patterns suggest that normal traffic corresponds to stable TCP-based communication with consistent throughput and minimal loss, while anomalies reflect bursty, high-intensity traffic often associated with flooding or abnormal transfers. The increased packet drop rates indicate congestion or instability, commonly seen during attacks or misconfigurations. The protocol shift toward UDP/ICMP further reinforces this, as such protocols are frequently used in scanning or DDoS scenarios due to their connectionless nature.
+
+### First Quantum Model: ZZFeatureMap + RealAmplitudes + SPSA
+
+**Key parameters:** `ZZFeatureMap` (reps=2), `RealAmplitudes` (reps=2), optimizer=`SPSA`, maxiter=100, qnn=`EstimatorQNN`
+
+#### Training time and loss curve
+
+![Training time and loss curve, VQC-1](results/run1/VQC-Model-1-Loss-Curve.png)
+
+#### Evaluation Metrics
+
+![Evaluation Metrics, VQC-1](results/run1/VQC-Model-1-Evaluation-Metrics-and-CM.png)
+
+**Observations:** Stable convergence with decent accuracy (~0.72), but high false negatives (missed anomalies)
+
+### Second Quantum Model: PauliFeatureMap + TwoLocal + SPSA
+
+**Key parameters:** `PauliFeatureMap` (reps=2), `TwoLocal` (reps=2), optimizer=`SPSA`, maxiter=100, qnn=`SamplerQNN`
+
+#### Training time and loss curve
+
+![Training time and loss curve, VQC-2](results/run1/VQC-Model-2-Loss-Curve.png)
+
+#### Evaluation Metrics
+
+![Evaluation Metrics, VQC-2](results/run1/VQC-Model-2-Evaluation-Metrics-and-CM.png)
+
+**Observations:** Weakest performance (~0.60), struggles heavily with anomaly detection
+
+### Third Quantum Model: ZFeatureMap + RealAmplitudes
+
+**Key parameters:** `ZFeatureMap` (reps=2), `RealAmplitudes` (reps=3), optimizer=`ADAM`, maxiter=40, qnn=`EstimatorQNN`
+
+#### Training time and loss curve
+
+![Training time and loss curve, VQC-3](results/run1/VQC-Model-3-Loss-Curve.png)
+
+#### Evaluation Metrics
+
+![Evaluation Metrics, VQC-3](results/run1/VQC-Model-3-Evaluation-Metrics-and-CM.png)
+
+**Observations:** Significant improvement (~0.85), reduced false negatives noticeably.
+
+### Fourth Quantum Model: Deeper Circuit (ZZFeatureMap + RealAmplitudes, reps=4)
+
+**Key parameters:** `ZZFeatureMap` (reps=4), `RealAmplitudes` (reps=4), optimizer=`COBYLA`, maxiter=100, qnn=`EstimatorQNN`
+
+#### Training time and loss curve
+
+![Training time and loss curve, VQC-4](results/run1/VQC-Model-4-Loss-Curve.png)
+
+#### Evaluation Metrics
+
+![Evaluation Metrics, VQC-4](results/run1/VQC-Model-4-Evaluation-Metrics-and-CM.png)
+
+**Observations:** Best performance (~0.89), strong convergence and balanced predictions → deeper circuit + better optimizer yields highest separability capture.
+
+### Classical Model Benchmarks: SVM & RandomForest
+
+#### SVM
+
+**Key parameters:** `kernel='rbf'`, `C=1.0`, `gamma='scale'`
+
+![Evaluation Metrics, SVM](results/run1/SVM-Evaluation-Metrics-and-CM.png)
+
+#### RandomForest
+
+**Key parameters:** `n_estimators=100`, `random_state=42`
+
+![Evaluation Metrics, RandomForest](results/run1/Random-Forest-Evaluation-Metrics-and-CM.png)
+
+**Observations:** Both `RandomForest` and `SVM` (RBF kernel) achieve perfect performance (100% across all metrics), indicating that the dataset is highly separable in feature space. This suggests that classical models can easily learn the decision boundary due to strong feature correlations and clear distribution shifts, highlighting that the current data setup is relatively simple.
+
+### VQC Model-4 Misclassification Analysis
+
+#### Misclassification analysis via PCA
+
+![Misclassification analysis PCA](results/run1/VQC-Model-4-Misclassification-analysis-PCA.png)
+
+#### Misclassifications by true label
+
+![Misclassifications by true label](results/run1/VQC-Model-4-Misclassifications-by-true-label.png)
+
+**Observations:** The PCA plot shows that most misclassifications occur within the anomalous cluster, particularly in regions where data points are more dispersed. Normal samples remain tightly clustered and are almost perfectly classified, reflecting strong separability for that class. The misclassification count further confirms this imbalance, with significantly more errors in anomalies than normal traffic.
+
+### Performance Comparison of Models and Summary
+
+#### Performance Comparison
+
+![Performance Comparison](results/run1/Performance-comparison-of-all-models.png)
+
+#### Summary
+
+![Summary](results/run1/Performance-summary-of-all-models.png)
+
+**Interpretation of results:** The comparison shows a performance hierarchy where VQC-2 performs the worst, followed by VQC-1, while VQC-3 and especially VQC-4 (deep circuit) show strong improvements, indicating that increased circuit depth and better optimizers significantly enhance learning capacity. However, both classical models (SVM and Random Forest) achieve perfect scores across all metrics, confirming that the dataset is linearly/nonlinearly separable enough for classical methods to fully capture. Overall, this highlights that while VQCs can approximate the decision boundary with increasing expressivity, they still lag behind classical models in efficiency and optimization on this dataset.
 
 ---
