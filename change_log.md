@@ -10,7 +10,7 @@ Changes were made primarily due to three main reasons:
 
 The following records the details of the changes made in the working copy:
 
-- All student demonstrations were removed except for 'Glossary of ML terms' and 'Data flow' diagram. The 'Additional Visualizations' section was preserved.
+- All student demonstrations were removed except for the 'Additional Visualizations' section was.
 - The VQC model 1 was trained using the `SPSA` optimizer in the original code, the descriptive markdown for the model was updated to reflect this as it instead mentioned `COBYLA`.
 - Sections were re-organized without interrupting the model training pipelines. For example, exploratory visualizations, correlation heatmap of features and PCA are now grouped towards the start of the notebook immediately after the data preprocessing pipeline. Similary, sections on misclassification analysis, summary of results, and additional visualizations are grouped towards the end of the notebook. The re-organization also included removal of redundant code blocks.
 - The `EstimatorQNN` used along with `NeuralNetworkClassifier` outputs values in the set [-1, 1], while the synthetic network data labels normal as '0' and anomalous as '1'. This mismatch produced incorrect confusion matrix and standard metric evaluations. The mismatch was fixed by replacing the '0' label with a '-1' during training input and converting '-1' to '0' in the output during evaluation.
