@@ -1,0 +1,116 @@
+{
+    "run": 3,
+    "description": "Random seed set to 100",
+    "VQC-Model-1": {
+        "training_time_seconds": 890.9908156394958,
+        "evaluation_metrics": {
+            "accuracy": 0.7266666666666667,
+            "precision": 0.8167701863354038,
+            "recall": 0.7266666666666667,
+            "f1_score": 0.7057416267942584
+        },
+        "confusion_matrix": [
+            [
+                149,
+                1
+            ],
+            [
+                81,
+                69
+            ]
+        ]
+    },
+    "VQC-Model-2": {
+        "training_time_seconds": 1480.900000333786,
+        "evaluation_metrics": {
+            "accuracy": 0.6466666666666666,
+            "precision": 0.6973212150203301,
+            "recall": 0.6466666666666667,
+            "f1_score": 0.6224354103343466
+        },
+        "confusion_matrix": [
+            [
+                135,
+                15
+            ],
+            [
+                91,
+                59
+            ]
+        ]
+    },
+    "VQC-Model-3": {
+        "training_time_seconds": 6549.47022819519,
+        "evaluation_metrics": {
+            "accuracy": 0.91,
+            "precision": 0.923728813559322,
+            "recall": 0.9099999999999999,
+            "f1_score": 0.9092650468797259
+        },
+        "confusion_matrix": [
+            [
+                150,
+                0
+            ],
+            [
+                27,
+                123
+            ]
+        ]
+    },
+    "VQC-Model-4": {
+        "training_time_seconds": 566.4606595039368,
+        "evaluation_metrics": {
+            "accuracy": 0.7633333333333333,
+            "precision": 0.7824252824252824,
+            "recall": 0.7633333333333333,
+            "f1_score": 0.7592649103177025
+        },
+        "confusion_matrix": [
+            [
+                134,
+                16
+            ],
+            [
+                55,
+                95
+            ]
+        ]
+    },
+    "SVM": {
+        "evaluation_metrics": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1_score": 1.0
+        },
+        "confusion_matrix": [
+            [
+                150,
+                0
+            ],
+            [
+                0,
+                150
+            ]
+        ]
+    },
+    "RF": {
+        "evaluation_metrics": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1_score": 1.0
+        },
+        "confusion_matrix": [
+            [
+                150,
+                0
+            ],
+            [
+                0,
+                150
+            ]
+        ]
+    }
+}

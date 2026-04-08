@@ -1,0 +1,9 @@
+{
+    "run": 2,
+    "description": "Random seed set to 7",
+    "random_seed": 7,
+    "n_samples": 1000,
+    "anomaly_ratio": 0.5,
+    "test_size": 0.3,
+    "maxiter": 100
+}
