@@ -21,21 +21,21 @@
         ]
     },
     "VQC-Model-2": {
-        "training_time_seconds": 1553.7976293563843,
+        "training_time_seconds": 1455.9302957057953,
         "evaluation_metrics": {
-            "accuracy": 0.5775,
-            "precision": 0.6271794871794871,
-            "recall": 0.5775,
-            "f1_score": 0.5317748917748918
+            "accuracy": 0.5175,
+            "precision": 0.7544529262086515,
+            "recall": 0.5175,
+            "f1_score": 0.37108455328266166
         },
         "confusion_matrix": [
             [
-                178,
-                22
+                200,
+                0
             ],
             [
-                147,
-                53
+                193,
+                7
             ]
         ]
     },

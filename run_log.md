@@ -73,7 +73,7 @@
 
 <img src="results/run1/VQC-Model-2-Evaluation-Metrics-and-CM.png" alt="Evaluation Metrics, VQC-2" width="40%" height="40%">
 
-**Observations:** Weakest performance (~0.60), struggles heavily with anomaly detection
+**Observations:** Weakest performance (0.573), struggles heavily with anomaly detection
 
 ### Third Quantum Model: ZFeatureMap + RealAmplitudes
 
@@ -187,7 +187,7 @@
 
 <img src="results/run2/VQC-Model-2-Evaluation-Metrics-and-CM.png" alt="Evaluation Metrics, VQC-2" width="40%" height="40%">
 
-**Observations:** Lowest performance among the four models, similar to the baseline run. Model converges approximately to the same point. Negligible decrease in accuracy (~0.59). High percentage of false negatives maintained.
+**Observations:** Lowest performance among the four models, similar to the baseline run. Almost completely misclassifies the anomalous samples. The F1-Score (0.35) indicates poor generalization of decision boundary to properly distinguish the two classes.
 
 ### Third Quantum Model: ZFeatureMap + RealAmplitudes
 
@@ -301,7 +301,7 @@
 
 <img src="results/run3/VQC-Model-2-Evaluation-Metrics-and-CM.png" alt="Evaluation Metrics, VQC-2" width="40%" height="40%">
 
-**Observations:** Slight increase in accuracy (~0.65). High percentage of false negatives maintained.
+**Observations:** Increase in F1-Score (~0.42). High percentage of false negatives maintained.
 
 ### Third Quantum Model: ZFeatureMap + RealAmplitudes
 
@@ -399,7 +399,7 @@
 
 <img src="results/run4/VQC-Model-2-Evaluation-Metrics-and-CM.png" alt="Evaluation Metrics, VQC-2" width="40%" height="40%">
 
-**Observations:** Reduction in training time and loss. High percentage of false negatives maintained and no significant improvement throughout all the performance metrics.
+**Observations:** Reduction in training time and loss. High percentage of false negatives maintained. However, there is improvement observed across all performance metrics.
 
 ### Third Quantum Model: ZFeatureMap + RealAmplitudes
 
@@ -497,7 +497,7 @@
 
 <img src="results/run5/VQC-Model-2-Evaluation-Metrics-and-CM.png" alt="Evaluation Metrics, VQC-2" width="40%" height="40%">
 
-**Observations:** Training time increased by about a factor of `2`. High percentage of false negatives maintained and slight decrease throughout all the performance metrics.
+**Observations:** Training time increased by about a factor of `2`. High percentage of false negatives maintained. Model struggles heavily in detecting anomalous samples.
 
 ### Third Quantum Model: ZFeatureMap + RealAmplitudes
 
@@ -595,7 +595,7 @@
 
 <img src="results/run6/VQC-Model-2-Evaluation-Metrics-and-CM.png" alt="Evaluation Metrics, VQC-2" width="40%" height="40%">
 
-**Observations:** A slight increase in accuracy compared to the baseline but a decrease in precision score. High percentage of false negatives maintained.
+**Observations:** High percentage of false negatives maintained. All the test-set anomalous samples are misclassified. On the other hand, all normal instances are correctly classified, indicating model bias. The likely cause could be that the model has learnt a degenerate decision boundary.
 
 ### Third Quantum Model: ZFeatureMap + RealAmplitudes
 
@@ -693,7 +693,7 @@
 
 <img src="results/run7/VQC-Model-2-Evaluation-Metrics-and-CM.png" alt="Evaluation Metrics, VQC-2" width="40%" height="40%">
 
-**Observations:** Model converges to a higher loss point although there is an increase in accuracy, recall, and F1-score compared to the baseline, but a decrease in precision. False negatives significantly decreased, although false positives increased as well.
+**Observations:** Unlike all previous cases the model now biases towards the anomalous samples. Classifies all the anomalous samples correctly with a higher proportion of false positives.
 
 ### Third Quantum Model: ZFeatureMap + RealAmplitudes
 
@@ -781,7 +781,7 @@ Varying the ratio of anomalous samples revealed distinct trends in the strengths
 
 <img src="results/run8/VQC-Model-2-Evaluation-Metrics-and-CM.png" alt="Evaluation Metrics, VQC-2" width="40%" height="40%">
 
-**Observations:** Increase in training time. More stable convergence as seen from the loss curve. Performance is similar to baseline.
+**Observations:** Performance is similar to baseline.
 
 ### Third Quantum Model: ZFeatureMap + RealAmplitudes
 
@@ -867,7 +867,7 @@ Varying the ratio of anomalous samples revealed distinct trends in the strengths
 
 <img src="results/run9/VQC-Model-2-Evaluation-Metrics-and-CM.png" alt="Evaluation Metrics, VQC-2" width="40%" height="40%">
 
-**Observations:** Slightly higher loss plateau. Slight decrease in performance across all evaluation metrics with accuracy `~0.58`.
+**Observations:** Reduced F1-Score `0.37`. High proportion of false negatives maintained.
 
 ### Third Quantum Model: ZFeatureMap + RealAmplitudes
 
